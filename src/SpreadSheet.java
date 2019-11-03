@@ -19,13 +19,28 @@ public class SpreadSheet {
 		this.actualRow = 0;
 	}
 	
-	public void fillSpreadSheet(String[] entry) {
-		
+	public void fillLine(String[] entry) {
+		for (int i = 0; i < entry.length; i++) {
+			try {
+				solution[this.actualRow][i] = Integer.parseInt(entry[i]);
+				this.entry[this.actualRow][i] = null;
+			}catch(NumberFormatException e) {
+				this.entry[this.actualRow][i] = entry[i];
+			}
+		}
 		this.actualRow++;
 	}
 
-	public void resolveSpreadSheet() {
-		// TODO Auto-generated method stub
+	public void resolve() {
+		System.out.println("jaja");
+		
+	}
+	
+	private int getCell(String position) {
+		return 0;
+	}
+	
+	private void resolveCell(int i, int j) {
 		
 	}
 	
