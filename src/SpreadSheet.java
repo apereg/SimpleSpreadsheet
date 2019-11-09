@@ -64,6 +64,7 @@ public class SpreadSheet {
 		String[] formulaSplitted = formula.split("+");
 		int result = 0;
 		for (int i = 0; i < formulaSplitted.length; i++) {
+			//Separar las partes y sacar la fila y columna con dos emtodos y llamar a resovlerCell con eso
 			for (int k = 0; k < formulaSplitted[i].length()-1; k++) {
 				if(isANum(formulaSplitted[i].substring(k, k))) {
 					
