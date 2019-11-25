@@ -6,13 +6,18 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int numSheets = readAnInteger(sc);
-		int sheetJ = readAnInteger(sc);
-		int sheetI = readAnInteger(sc);
-		if (sheetI < 0 || sheetI > 999 || sheetJ < 0 || sheetJ > 18278)
-			wrongEntry(sc);
-		SpreadSheet[] sol = readAndSolveSpreadSheet(sc, numSheets, sheetI, sheetJ);
+		SpreadSheet[] sol = readAndSolveSpreadSheet(sc, numSheets);
 		printSpreadSheetSolution(sol);
 		sc.close();
+	}
+
+	private static int[] readTwoIntegers(Scanner scanner) {
+		String entry = scanner.nextLine();
+		String[] entrySplitted = entry.split(" ");
+		if (entrySplitted.length != 2 || !isANum(entrySplitted[0]) || !isANum(entrySplitted[1]) ) 
+			wrongEntry(scanner);
+		int[] result = {Integer.parseInt(entrySplitted[0]), Integer.parseInt(entrySplitted[1])};
+		return result;
 	}
 
 	private static void printSpreadSheetSolution(SpreadSheet[] sol) {
@@ -35,9 +40,14 @@ public class Main {
 		return entrySplitted;
 	}
 
-	private static SpreadSheet[] readAndSolveSpreadSheet(Scanner sc, int numSheets, int sheetI, int sheetJ) {
+	private static SpreadSheet[] readAndSolveSpreadSheet(Scanner sc, int numSheets) {
 		ArrayList<SpreadSheet> solutions = new ArrayList<SpreadSheet>();
 		for (int k = 0; k < numSheets; k++) {
+			int[] sheetDim = readTwoIntegers(sc);
+			int sheetJ = sheetDim[0];
+			int sheetI = sheetDim[1];
+			if (sheetI < 0 || sheetI > 999 || sheetJ < 0 || sheetJ > 18278)
+				wrongEntry(sc);
 			SpreadSheet spreadSheet = new SpreadSheet(sheetI, sheetJ);
 			for (int i = 0; i < sheetI; i++) {
 				spreadSheet.fillLine(getALine(sc, sheetJ), i);
