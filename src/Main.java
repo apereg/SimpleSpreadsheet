@@ -78,7 +78,7 @@ public class Main {
 	}
 
 	public static void wrongEntry(Scanner scanner) {
-		System.out.println("Entrada Inválida.");
+		System.out.println("Entrada del Inválida.");
 		scanner.close();
 		System.exit(-1);
 	}
