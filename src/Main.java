@@ -5,10 +5,15 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int numSheets = readAnInteger(sc);
-		SpreadSheet[] sol = readAndSolveSpreadSheet(sc, numSheets);
-		printSpreadSheetSolution(sol);
-		sc.close();
+		try {
+			int numSheets = readAnInteger(sc);
+			if(numSheets < 1) throw new Exception();
+			SpreadSheet[] sol = readAndSolveSpreadSheet(sc, numSheets);
+			printSpreadSheetSolution(sol);
+			sc.close();
+		}catch(Exception e) {
+			wrongEntry(sc);
+		}
 	}
 
 	private static int[] readTwoIntegers(Scanner scanner) {
@@ -46,8 +51,7 @@ public class Main {
 			int[] sheetDim = readTwoIntegers(sc);
 			int sheetJ = sheetDim[0];
 			int sheetI = sheetDim[1];
-			if (sheetI < 0 || sheetI > 999 || sheetJ < 0 || sheetJ > 18278)
-				wrongEntry(sc);
+			if (sheetI < 0 || sheetI > 999 || sheetJ < 0 || sheetJ > 18278) wrongEntry(sc);
 			SpreadSheet spreadSheet = new SpreadSheet(sheetI, sheetJ);
 			for (int i = 0; i < sheetI; i++) {
 				spreadSheet.fillLine(getALine(sc, sheetJ), i);
@@ -78,7 +82,7 @@ public class Main {
 	}
 
 	public static void wrongEntry(Scanner scanner) {
-		System.out.println("Entrada del Inválida.");
+		System.out.println("Entrada Inválida.");
 		scanner.close();
 		System.exit(-1);
 	}

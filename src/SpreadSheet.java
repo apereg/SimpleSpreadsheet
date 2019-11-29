@@ -1,3 +1,5 @@
+import java.lang.invoke.WrongMethodTypeException;
+
 public class SpreadSheet {
 	
 	private String[][] entry;
@@ -59,28 +61,37 @@ public class SpreadSheet {
 		int suma = 0;
 		for (int i = 0; i < s.length(); i++)
 			suma += Math.pow(26, i) * getAsciiNum(s.charAt(i));
-		return suma;
+		return --suma;
 	}
 	
 	private int resolveFormula(String formula) {
-		int result = 0;
+		int result = 0, letra = -1;
 		formula = formula.substring(1, formula.length());
 		formula = formula.replaceAll("\\+", ",");
 		String[] formulaSplitted = formula.split(",");
 		for (int i = 0; i < formulaSplitted.length; i++) {
+			letra = -1;
 			StringBuffer Num = new StringBuffer();
 			StringBuffer Letter = new StringBuffer();	
 			for (int k = 0; k < formulaSplitted[i].length(); k++) {
-				if(Main.isANum(formulaSplitted[i].substring(k, k+1)))
+				if(Main.isANum(formulaSplitted[i].substring(k, k+1))) {
+					letra = getFormulaCol(Letter.toString());
 					Num.append(formulaSplitted[i].charAt(k));
-				else
-					Letter.append(formulaSplitted[i].charAt(k));
+				}
+				else {
+					if(letra == -1 || !(Character.isUpperCase(formulaSplitted[i].charAt(k))) ) {
+						Letter.append(formulaSplitted[i].charAt(k));
+					}
+					else {
+						Main.wrongEntry();
+					}
+				}
 			
 			}
+			if(letra == -1) Main.wrongEntry();
 			if(Num.toString().isEmpty() || Letter.toString().isEmpty())
 				Main.wrongEntry();
 			int num = Integer.parseInt(Num.toString())-1;
-			int letra = getFormulaCol(Letter.toString())-1;
 			result += resolveCell(num, letra);
 		}
 		return result;
